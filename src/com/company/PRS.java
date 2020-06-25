@@ -9,14 +9,14 @@ public class PRS extends JFrame implements ActionListener {
     private final JButton scb, rob, pab;
     private JLabel wins, ties, losses, WL, user, comp, user_choice, comp_choice;
     private JPanel top, mid, lower, score, user_pan, comp_pan, result;
-    private int num_wins = 0, num_losses = 0, num_ties = 0, compaction, userl;
+    private int num_wins = 0, num_losses = 0, num_ties = 0, compaction;
     private final ImageIcon ro, sc, pa, quest;
     private Dimension d = new Dimension(150, 50);
     private Font font = new Font("Forte", Font.BOLD, 36);
 
 
     PRS() {
-        setPreferredSize(new Dimension(600, 300));
+        setPreferredSize(new Dimension(600, 600));
         Container c = getContentPane();
         c.setLayout(new BoxLayout(c, BoxLayout.Y_AXIS));
 
@@ -120,7 +120,6 @@ public class PRS extends JFrame implements ActionListener {
         add(Box.createVerticalGlue());
         add(lower);
         add(Box.createVerticalStrut(10));
-        setBackground(Color.YELLOW);
         pack();
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -134,7 +133,7 @@ public class PRS extends JFrame implements ActionListener {
             WL.setText("IT'S A TIE :/");
         } else if ((comp_new.equals("Sc") && user.equals("Ro")) || (comp_new.equals("Pa") && user.equals("Sc")) || (comp_new.equals("Ro") && user.equals("Pa"))) {
             num_wins += 1;
-            wins.setText("USER: " + num_wins);
+            wins.setText("Human: " + num_wins);
             WL.setText("YOU WIN :)");
         } else {
             num_losses += 1;
