@@ -6,35 +6,35 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class PRS extends JFrame implements ActionListener {
-    private final JButton scb, rob, pab;
-    private JLabel wins, ties, losses, WL, user, comp, user_choice, comp_choice;
-    private JPanel top, mid, lower, score, user_pan, comp_pan, result;
-    private int num_wins = 0, num_losses = 0, num_ties = 0, compaction;
-    private final ImageIcon ro, sc, pa, quest;
-    private Dimension d = new Dimension(150, 50);
-    private Font font = new Font("Forte", Font.BOLD, 36);
+    private final JButton scissors_but, rock_but, paper_but;   //define buttons
+    private JLabel wins, ties, losses, WL, user, comp, user_choice, comp_choice; //define labels
+    private JPanel top, mid, lower, score, user_pan, comp_pan, result;          //define panels
+    private int num_wins = 0, num_losses = 0, num_ties = 0, compaction;  //define counters
+    private final ImageIcon rock, scissors, paper, quest;              //define Icons
+    private Dimension d = new Dimension(150, 50); //define dimension for Labels
+    private Font font = new Font("Forte", Font.BOLD, 36); //define font for Lables
 
 
     PRS() {
         setPreferredSize(new Dimension(600, 600));
         Container c = getContentPane();
-        c.setLayout(new BoxLayout(c, BoxLayout.Y_AXIS));
+        c.setLayout(new BoxLayout(c, BoxLayout.Y_AXIS));  //box layout is optimal
 
 
 
         top = new JPanel();
-        top.setPreferredSize(new Dimension(500, 80));
-        top.setLayout(new BoxLayout(top, BoxLayout.Y_AXIS));
+        top.setPreferredSize(new Dimension(500, 80)); //arranging the upper Pannel
+        top.setLayout(new BoxLayout(top, BoxLayout.Y_AXIS));       //from top to bottom
 
         score = new JPanel();
-        score.setPreferredSize(new Dimension(500, 40));
-        score.setLayout(new BoxLayout(score, BoxLayout.X_AXIS));
-        score.add(Box.createHorizontalGlue());
-        wins = new JLabel("Human: " + num_wins);
-        wins.setFont(font);
+        score.setPreferredSize(new Dimension(500, 40)); //arranging the score panel
+        score.setLayout(new BoxLayout(score, BoxLayout.X_AXIS));    //from left to right
+        score.add(Box.createHorizontalGlue());              //adding glues for fine shapes
+        wins = new JLabel("Human: " + num_wins);        //adding label for human's wins counter
+        wins.setFont(font);                                     //with fancy font
         score.add(wins);
-        score.add(Box.createHorizontalGlue());
-        ties = new JLabel("Draws: " + num_ties);
+        score.add(Box.createHorizontalGlue());              //glue between panels
+        ties = new JLabel("Draws: " + num_ties);        //initializing label for human's wins counter
         ties.setFont(font);
         score.add(ties);
         score.add(Box.createHorizontalGlue());
@@ -44,31 +44,31 @@ public class PRS extends JFrame implements ActionListener {
         score.add(Box.createHorizontalGlue());
 
         result = new JPanel();
-        WL = new JLabel("Good Luck");
-        WL.setFont(font);
-        result.add(WL);
+        WL = new JLabel("Good Luck");       //initializing widget for you win/you loose panel
+        WL.setFont(font);                       //it says good luck only once, before the game starts
+        result.add(WL);                         //it is contained in result panel
 
-        top.add(Box.createHorizontalGlue());
+        top.add(Box.createHorizontalGlue());         //finally, adding all the sub-panels to the top panel
         top.add(score);
         top.add(Box.createHorizontalStrut(10));
         top.add(result);
         top.add(Box.createHorizontalGlue());
 
-        mid = new JPanel();
-        mid.setPreferredSize(new Dimension(500, 100));
-        mid.setBorder(BorderFactory.createLineBorder(Color.RED));
+        mid = new JPanel();                                              //start to work on middle panel
+        mid.setPreferredSize(new Dimension(500, 100));      //set dimensions
+        mid.setBorder(BorderFactory.createLineBorder(Color.RED));       //the only one witch bordered
         mid.setLayout(new BoxLayout(mid, BoxLayout.X_AXIS));
-        user_pan = new JPanel();
+        user_pan = new JPanel();                                        //init. the panel, which displays the user move as a picture
         user_pan.setPreferredSize(new Dimension(250, 100));
         user_pan.setLayout(new BoxLayout(user_pan, BoxLayout.Y_AXIS));
         user = new JLabel("USER");
         user.setFont(font);
-        quest = new ImageIcon("question.jpg");
+        quest = new ImageIcon("question.jpg");                  //in the beginning of the game it displays question picture
         user_choice = new JLabel(quest);
         user_choice.setPreferredSize(d);
-        user_pan.add(user);
+        user_pan.add(user);                                             //form the user panel
         user_pan.add(user_choice);
-        comp_pan = new JPanel();
+        comp_pan = new JPanel();                                        //same process with computes's part of panel
         comp_pan.setPreferredSize(new Dimension(250, 100));
         comp_pan.setLayout(new BoxLayout(comp_pan, BoxLayout.Y_AXIS));
         comp = new JLabel("COMPUTER");
@@ -78,8 +78,8 @@ public class PRS extends JFrame implements ActionListener {
         comp_pan.add(comp);
         comp_pan.add(comp_choice);
 
-        mid.add(Box.createVerticalGlue());
-        mid.add(user_pan);
+        mid.add(Box.createVerticalGlue());                  //after all sub-panels are built, add it to middle panel in
+        mid.add(user_pan);                                  //order they will appear on the screen(from left to right
         mid.add(Box.createHorizontalStrut(50));
         mid.add(comp_pan);
         mid.add(Box.createVerticalGlue());
@@ -88,29 +88,29 @@ public class PRS extends JFrame implements ActionListener {
         lower.setPreferredSize(new Dimension(500, 80));
         lower.setLayout(new BoxLayout(lower, BoxLayout.X_AXIS));
 
-        ro = new ImageIcon("Rock.jpg");
-        sc = new ImageIcon("Scissors.jpg");
-        pa = new ImageIcon("Paper.jpg");
+        rock = new ImageIcon("Rock.jpg");
+        scissors = new ImageIcon("Scissors.jpg");
+        paper = new ImageIcon("Paper.jpg");
 
-        scb = new JButton(sc);
-        scb.setPreferredSize(d);
-        scb.addActionListener(this);
+        scissors_but = new JButton(scissors);
+        scissors_but.setPreferredSize(d);
+        scissors_but.addActionListener(this);
 
 
-        rob = new JButton(ro);
-        rob.setPreferredSize(d);
-        rob.addActionListener(this);
+        rock_but = new JButton(rock);
+        rock_but.setPreferredSize(d);
+        rock_but.addActionListener(this);
 
-        pab = new JButton(pa);
-        pab.setPreferredSize(d);
-        pab.addActionListener(this);
+        paper_but = new JButton(paper);
+        paper_but.setPreferredSize(d);
+        paper_but.addActionListener(this);
 
         lower.add(Box.createHorizontalStrut(20));
-        lower.add(scb);
+        lower.add(scissors_but);
         lower.add(Box.createHorizontalGlue());
-        lower.add(rob);
+        lower.add(rock_but);
         lower.add(Box.createHorizontalGlue());
-        lower.add(pab);
+        lower.add(paper_but);
         lower.add(Box.createHorizontalStrut(20));
 
         add(Box.createVerticalStrut(10));
@@ -145,18 +145,18 @@ public class PRS extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         compaction = (int) (Math.random() * 3);
-        Icon[] icons = {ro, sc, pa};
+        Icon[] icons = {rock, scissors, paper};
 
-        if (e.getSource() == scb) {
-            user_choice.setIcon(sc); //set user's action icon in the middle panel
+        if (e.getSource() == scissors_but) {
+            user_choice.setIcon(scissors); //set user's action icon in the middle panel
             comp_choice.setIcon(icons[compaction]); // sets computer action icon in the middle panel
             result_cal(icons[compaction].toString(), "Sc"); //updates a whole top panel
-        } else if (e.getSource() == rob) {
-            user_choice.setIcon(ro);
+        } else if (e.getSource() == rock_but) {
+            user_choice.setIcon(rock);
             comp_choice.setIcon(icons[compaction]);
             result_cal(icons[compaction].toString(), "Ro");
         } else {
-            user_choice.setIcon(pa);
+            user_choice.setIcon(paper);
             comp_choice.setIcon(icons[compaction]);
             result_cal(icons[compaction].toString(), "Pa");
         }
