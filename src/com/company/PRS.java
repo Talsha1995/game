@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+//TODO change "WL" label to "screen_msg" label
+
 public class PRS extends JFrame implements ActionListener {
     private final JButton scissors_but, rock_but, paper_but;   //define buttons
     private JLabel wins, ties, losses, WL, user, comp, user_choice, comp_choice; //define labels
@@ -34,11 +36,11 @@ public class PRS extends JFrame implements ActionListener {
         wins.setFont(font);                                     //with fancy font
         score.add(wins);
         score.add(Box.createHorizontalGlue());              //glue between panels
-        ties = new JLabel("Draws: " + num_ties);        //initializing label for human's wins counter
+        ties = new JLabel("Draws: " + num_ties);        //initializing label for human's draws counter
         ties.setFont(font);
         score.add(ties);
-        score.add(Box.createHorizontalGlue());
-        losses = new JLabel("Computer: " + num_losses);
+        score.add(Box.createHorizontalGlue());          //glue between panels
+        losses = new JLabel("Computer: " + num_losses); //initializing label for human's losses counter
         losses.setFont(font);
         score.add(losses);
         score.add(Box.createHorizontalGlue());
@@ -84,31 +86,31 @@ public class PRS extends JFrame implements ActionListener {
         mid.add(comp_pan);
         mid.add(Box.createVerticalGlue());
 
-        lower = new JPanel();
-        lower.setPreferredSize(new Dimension(500, 80));
-        lower.setLayout(new BoxLayout(lower, BoxLayout.X_AXIS));
+        lower = new JPanel();                               //start work on lower panel
+        lower.setPreferredSize(new Dimension(500, 80));     //set dimensions
+        lower.setLayout(new BoxLayout(lower, BoxLayout.X_AXIS)); 
 
-        rock = new ImageIcon("Rock.jpg");
-        scissors = new ImageIcon("Scissors.jpg");
-        paper = new ImageIcon("Paper.jpg");
+        rock = new ImageIcon("Rock.jpg");                   //rock image 
+        scissors = new ImageIcon("Scissors.jpg");           // scissors image
+        paper = new ImageIcon("Paper.jpg");                 // paper image
 
-        scissors_but = new JButton(scissors);
-        scissors_but.setPreferredSize(d);
+        scissors_but = new JButton(scissors);               
+        scissors_but.setPreferredSize(d);                   //initializing button with scissors image
         scissors_but.addActionListener(this);
 
 
         rock_but = new JButton(rock);
-        rock_but.setPreferredSize(d);
+        rock_but.setPreferredSize(d);                       //initializing button with rock image
         rock_but.addActionListener(this);
 
         paper_but = new JButton(paper);
-        paper_but.setPreferredSize(d);
+        paper_but.setPreferredSize(d);                      //initializing button with paper image
         paper_but.addActionListener(this);
 
-        lower.add(Box.createHorizontalStrut(20));
+        lower.add(Box.createHorizontalStrut(20));           
         lower.add(scissors_but);
         lower.add(Box.createHorizontalGlue());
-        lower.add(rock_but);
+        lower.add(rock_but);                                //adding buttuns to lower panel, with glue between them and strut around
         lower.add(Box.createHorizontalGlue());
         lower.add(paper_but);
         lower.add(Box.createHorizontalStrut(20));
@@ -117,48 +119,51 @@ public class PRS extends JFrame implements ActionListener {
         add(top);
         add(Box.createVerticalGlue());
         add(mid);
-        add(Box.createVerticalGlue());
+        add(Box.createVerticalGlue());                  //finally build main frame with 3 panels in it
         add(lower);
         add(Box.createVerticalStrut(10));
         pack();
         setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // program stop when exit the game window
     }
 
+  /*this functiion get random choice (as "Sc"/"Ro"/"Pa") and icon name of the pressed buttun, and make the right changes (win/ lose/ draw) in the frame  */
+    
     void result_cal(String comp, String user) {
-        String comp_new= comp.substring(0,2);
-        if (comp_new.equals(user)) {
+        String comp_new= comp.substring(0,2);   //make the icon name (user choose) shorter, to be the same as the computer choice ("Sc"/"Ro"/"Pa")
+        if (comp_new.equals(user)) {            //tie situation
             num_ties += 1;
-            ties.setText("Draws: " + num_ties);
-            WL.setText("IT'S A TIE :/");
+            ties.setText("Draws: " + num_ties); //set tie lable to updated ties counter
+            WL.setText("IT'S A TIE :/");        //set the screen messege 
         } else if ((comp_new.equals("Sc") && user.equals("Ro")) || (comp_new.equals("Pa") && user.equals("Sc")) || (comp_new.equals("Ro") && user.equals("Pa"))) {
+            //all options for win situation^^^
             num_wins += 1;
-            wins.setText("Human: " + num_wins);
-            WL.setText("YOU WIN :)");
-        } else {
+            wins.setText("Human: " + num_wins); //set win label to updated wins counter
+            WL.setText("YOU WIN :)");           // set the screen meesege
+        } else { // lose situation
             num_losses += 1;
-            losses.setText("Computer: " + num_losses);
+            losses.setText("Computer: " + num_losses); // set the right labels like before
             WL.setText("YOU LOSE :(");
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        compaction = (int) (Math.random() * 3);
-        Icon[] icons = {rock, scissors, paper};
+        compaction = (int) (Math.random() * 3); //random number from 0, 1, 2
+        Icon[] icons = {rock, scissors, paper}; //array of icons
 
-        if (e.getSource() == scissors_but) {
-            user_choice.setIcon(scissors); //set user's action icon in the middle panel
-            comp_choice.setIcon(icons[compaction]); // sets computer action icon in the middle panel
+        if (e.getSource() == scissors_but) { 
+            user_choice.setIcon(scissors);                  //set user's action icon in the middle panel
+            comp_choice.setIcon(icons[compaction]);         // sets computer action icon in the middle panel
             result_cal(icons[compaction].toString(), "Sc"); //updates a whole top panel
         } else if (e.getSource() == rock_but) {
-            user_choice.setIcon(rock);
-            comp_choice.setIcon(icons[compaction]);
-            result_cal(icons[compaction].toString(), "Ro");
+            user_choice.setIcon(rock);                      //set user's action icon in the middle panel
+            comp_choice.setIcon(icons[compaction]);         // sets computer action icon in the middle panel
+            result_cal(icons[compaction].toString(), "Ro"); //updates a whole top panel
         } else {
-            user_choice.setIcon(paper);
-            comp_choice.setIcon(icons[compaction]);
-            result_cal(icons[compaction].toString(), "Pa");
+            user_choice.setIcon(paper);                     //set user's action icon in the middle panel
+            comp_choice.setIcon(icons[compaction]);         // sets computer action icon in the middle panel
+            result_cal(icons[compaction].toString(), "Pa"); //updates a whole top panel
         }
     }
 }
